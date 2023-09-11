@@ -3,21 +3,31 @@ package main
 import (
 	"fmt"
 	"newtoallofthis/go_learning/algos/sortings"
+	"newtoallofthis/go_learning/utils/calculator"
 	"newtoallofthis/go_learning/utils/cli"
-	"strconv"
 )
 
 func main() {
-	args := cli.Get_Args()
-	var nums []int
-	for _, arg := range args {
-		intValue, err := strconv.Atoi(arg)
-		if err != nil {
-			fmt.Printf("Error converting string to int: %v\n", err)
-			return
-		}
-		// Append the integer to the integer array
-		nums = append(nums, intValue)
+	cmd, nums := cli.Handle_Cli()
+	switch cmd {
+	case "help":
+		fmt.Println("Help")
+	case "add":
+		fmt.Println("Adding")
+		fmt.Println(calculator.Add(nums))
+	case "sub":
+		fmt.Println("Subtracting")
+		fmt.Println(calculator.Sub(nums))
+	case "bubble":
+		fmt.Println("Bubble")
+		fmt.Println(sortings.BubbleSort(nums))
+	case "selection":
+		fmt.Println("Selection")
+		fmt.Println(sortings.SelectionSort(nums))
+	case "insertion":
+		fmt.Println("Insertion")
+		fmt.Println(sortings.InsertionSort(nums))
+	default:
+		fmt.Println("Invalid command")
 	}
-	fmt.Println(sortings.BubbleSort(nums))
 }
